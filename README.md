@@ -1,1 +1,5 @@
 # CS4278-SoulfulSwaps
+
+A peer of ours approached our team looking to develop an exchange-based clothing marketplace application. Our client has a large, established social media following, and is hoping to convert some of her following into users of this marketplace application. A large portion of the branding of this marketplace will be focused on the sustainability benefits of finding new clothes through a carbon-zero exchange rather than going out and buying new clothing, which contributes to unsustainable practices in the fashion industry. The marketplace will ideally serve the function of hosting exchanges, while not actually mediating any of the exchange process itself. This will be accomplished by implementing robust location and chat features which will allow users to coordinate and execute transactions independently. The marketplace will likely be an iOS based application to begin, but will hopefully be able to be ported across mobile operating systems.
+
+Since this application will start as an iOS based app, it will largely be built using Swift. It will also use a SQLite databse. 
