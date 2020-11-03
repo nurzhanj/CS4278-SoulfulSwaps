@@ -12,6 +12,8 @@ class MenuViewController: UIViewController {
     
     @IBOutlet weak var signupButton: UIButton!
     
+    @IBOutlet weak var hardcode: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

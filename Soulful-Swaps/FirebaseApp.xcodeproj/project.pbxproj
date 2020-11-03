@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		719E8AF52551E8EC001D22F6 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E8AF42551E8EC001D22F6 /* UploadViewController.swift */; };
 		B0E7901320250813002DA8AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7901220250813002DA8AF /* AppDelegate.swift */; };
 		B0E7901520250813002DA8AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7901420250813002DA8AF /* ViewController.swift */; };
 		B0E7901820250813002DA8AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E7901620250813002DA8AF /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		719E8AF42551E8EC001D22F6 /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
 		B0E7900F20250813002DA8AF /* FirebaseApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E7901220250813002DA8AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0E7901420250813002DA8AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E7901220250813002DA8AF /* AppDelegate.swift */,
+				719E8AF42551E8EC001D22F6 /* UploadViewController.swift */,
 				B0E7901420250813002DA8AF /* ViewController.swift */,
 				B0E790282025085E002DA8AF /* HelperExtensions.swift */,
 				B0E790272025085E002DA8AF /* InitialViewController.swift */,
@@ -158,6 +161,7 @@
 				B0E7902A2025085E002DA8AF /* LoginViewController.swift in Sources */,
 				B0E7902F2025085E002DA8AF /* SignUpViewController.swift in Sources */,
 				B0E7902C2025085E002DA8AF /* RoundedWhiteButton.swift in Sources */,
+				719E8AF52551E8EC001D22F6 /* UploadViewController.swift in Sources */,
 				B0E7901520250813002DA8AF /* ViewController.swift in Sources */,
 				B0E7902D2025085E002DA8AF /* InitialViewController.swift in Sources */,
 				B0E7901320250813002DA8AF /* AppDelegate.swift in Sources */,
