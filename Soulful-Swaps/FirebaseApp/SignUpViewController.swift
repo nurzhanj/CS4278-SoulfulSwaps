@@ -146,7 +146,7 @@ class SignUpViewController:UIViewController, UITextFieldDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /*
         // database file
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             .appendingPathComponent("SoulfulSwapsDB.sqlite")
@@ -161,7 +161,7 @@ class SignUpViewController:UIViewController, UITextFieldDelegate, UITableViewDat
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("error creating table: \(errmsg)")
         }
-        
+        */
         view.addVerticalGradientLayer(topColor: primaryColor, bottomColor: secondaryColor)
         
         continueButton = RoundedWhiteButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
