@@ -34,16 +34,12 @@ final class ItemViewController: UIViewController {
 
     private func showDataForItem(at index: Int) {
         
-      // defensive code: make sure the requested index is lower than the amount of albums
       if (index < allItems.count && index > -1) {
-        // fetch the album
         let item = allItems[index]
-        // save the albums data to present it later in the tableview
         currentItemData = item.tableRepresentation
       } else {
         currentItemData = nil
       }
-      // we have the data we need, let's refresh our tableview
       tableView.reloadData()
     }
 }
