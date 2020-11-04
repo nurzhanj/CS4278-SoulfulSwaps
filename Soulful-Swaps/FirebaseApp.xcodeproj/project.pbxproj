@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		719E8AF52551E8EC001D22F6 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E8AF42551E8EC001D22F6 /* UploadViewController.swift */; };
+		9E51E12E25522F3D0062857E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E51E12D25522F3D0062857E /* User.swift */; };
 		B0E7901320250813002DA8AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7901220250813002DA8AF /* AppDelegate.swift */; };
 		B0E7901520250813002DA8AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7901420250813002DA8AF /* ViewController.swift */; };
 		B0E7901820250813002DA8AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E7901620250813002DA8AF /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		719E8AF42551E8EC001D22F6 /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
+		9E51E12D25522F3D0062857E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B0E7900F20250813002DA8AF /* FirebaseApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E7901220250813002DA8AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0E7901420250813002DA8AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				B0E7901920250813002DA8AF /* Assets.xcassets */,
 				B0E7901B20250813002DA8AF /* LaunchScreen.storyboard */,
 				B0E7901E20250813002DA8AF /* Info.plist */,
+				9E51E12D25522F3D0062857E /* User.swift */,
 			);
 			path = FirebaseApp;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				B0E7901520250813002DA8AF /* ViewController.swift in Sources */,
 				B0E7902D2025085E002DA8AF /* InitialViewController.swift in Sources */,
 				B0E7901320250813002DA8AF /* AppDelegate.swift in Sources */,
+				9E51E12E25522F3D0062857E /* User.swift in Sources */,
 				B0E7902B2025085E002DA8AF /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
