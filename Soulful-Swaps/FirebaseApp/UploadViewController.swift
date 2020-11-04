@@ -7,45 +7,44 @@
 
 import UIKit
 
-class UploadViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class UploadViewController: UIViewController {
+    
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var brand: UITextField!
     @IBOutlet weak var wear: UITextField!
     @IBOutlet weak var size: UITextField!
-    var selectedImage: UIImage!
+    var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Upload Image"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(importPicture))
+        imagePicker.delegate = self
     }
     
-    @IBAction func saveItem(_ sender: Any) {
-    }
-    
-    
-    @objc func importPicture(){
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
-        present(picker, animated: true)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else {return}
-        dismiss(animated: true)
-        selectedImage = image
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func saveImage(_ sender: UIButton) {
+    }
     
-
-
+    @IBAction func onClickPickImage(_ sender: Any) {
+        imagePicker.sourceType = .savedPhotosAlbum
+        imagePicker.allowsEditing = true;
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+}
+    
+extension UploadViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]){
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
+            imageView.image = image
+        }
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 

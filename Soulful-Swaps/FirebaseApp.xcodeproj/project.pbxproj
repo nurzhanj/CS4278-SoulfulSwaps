@@ -14,6 +14,7 @@
 		745B065E255218EC0067EE75 /* CatalogAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B065D255218EC0067EE75 /* CatalogAPI.swift */; };
 		745B0662255219120067EE75 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B0661255219120067EE75 /* PersistenceManager.swift */; };
 		745B066525521CAC0067EE75 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B066425521CAC0067EE75 /* HTTPClient.swift */; };
+		9E51E12E25522F3D0062857E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E51E12D25522F3D0062857E /* User.swift */; };
 		B0E7901320250813002DA8AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7901220250813002DA8AF /* AppDelegate.swift */; };
 		B0E7901520250813002DA8AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7901420250813002DA8AF /* ViewController.swift */; };
 		B0E7901820250813002DA8AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E7901620250813002DA8AF /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 		745B065D255218EC0067EE75 /* CatalogAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogAPI.swift; sourceTree = "<group>"; };
 		745B0661255219120067EE75 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		745B066425521CAC0067EE75 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		9E51E12D25522F3D0062857E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B0E7900F20250813002DA8AF /* FirebaseApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E7901220250813002DA8AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0E7901420250813002DA8AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				B0E7901920250813002DA8AF /* Assets.xcassets */,
 				B0E7901B20250813002DA8AF /* LaunchScreen.storyboard */,
 				B0E7901E20250813002DA8AF /* Info.plist */,
+				9E51E12D25522F3D0062857E /* User.swift */,
 			);
 			path = FirebaseApp;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				745B066525521CAC0067EE75 /* HTTPClient.swift in Sources */,
 				B0E7902D2025085E002DA8AF /* InitialViewController.swift in Sources */,
 				B0E7901320250813002DA8AF /* AppDelegate.swift in Sources */,
+				9E51E12E25522F3D0062857E /* User.swift in Sources */,
 				B0E7902B2025085E002DA8AF /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,7 +12,7 @@ class MenuViewController: UIViewController {
     
     @IBOutlet weak var signupButton: UIButton!
     
-    @IBOutlet weak var hardcode: UIButton!
+    @IBOutlet weak var uploadClothes: RoundedWhiteButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
