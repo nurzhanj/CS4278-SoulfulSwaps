@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7152BF73256365FE00A400A5 /* ExplorePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152BF72256365FE00A400A5 /* ExplorePageController.swift */; };
+		7152BF762563756700A400A5 /* ListedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152BF752563756700A400A5 /* ListedItem.swift */; };
+		7152BF792563762000A400A5 /* AreaContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152BF782563762000A400A5 /* AreaContainer.swift */; };
+		7152BF7C2563792500A400A5 /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152BF7B2563792500A400A5 /* SelfConfiguringCell.swift */; };
+		7152BF7F256379C600A400A5 /* FeaturedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152BF7E256379C600A400A5 /* FeaturedCell.swift */; };
 		719E8AF52551E8EC001D22F6 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E8AF42551E8EC001D22F6 /* UploadViewController.swift */; };
 		745B065125520AE40067EE75 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B065025520AE40067EE75 /* Item.swift */; };
 		745B065425520AF20067EE75 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B065325520AF20067EE75 /* ItemView.swift */; };
@@ -29,6 +34,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7152BF72256365FE00A400A5 /* ExplorePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePageController.swift; sourceTree = "<group>"; };
+		7152BF752563756700A400A5 /* ListedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListedItem.swift; sourceTree = "<group>"; };
+		7152BF782563762000A400A5 /* AreaContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaContainer.swift; sourceTree = "<group>"; };
+		7152BF7B2563792500A400A5 /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
+		7152BF7E256379C600A400A5 /* FeaturedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCell.swift; sourceTree = "<group>"; };
 		719E8AF42551E8EC001D22F6 /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
 		745B065025520AE40067EE75 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		745B065325520AF20067EE75 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
@@ -121,7 +131,12 @@
 				745B0648255208870067EE75 /* View */,
 				745B0646255208630067EE75 /* Model */,
 				B0E7901220250813002DA8AF /* AppDelegate.swift */,
+				7152BF7B2563792500A400A5 /* SelfConfiguringCell.swift */,
+				7152BF7E256379C600A400A5 /* FeaturedCell.swift */,
+				7152BF752563756700A400A5 /* ListedItem.swift */,
+				7152BF782563762000A400A5 /* AreaContainer.swift */,
 				719E8AF42551E8EC001D22F6 /* UploadViewController.swift */,
+				7152BF72256365FE00A400A5 /* ExplorePageController.swift */,
 				B0E7901420250813002DA8AF /* ViewController.swift */,
 				B0E790282025085E002DA8AF /* HelperExtensions.swift */,
 				B0E790272025085E002DA8AF /* InitialViewController.swift */,
@@ -212,10 +227,13 @@
 			files = (
 				745B065125520AE40067EE75 /* Item.swift in Sources */,
 				745B0662255219120067EE75 /* PersistenceManager.swift in Sources */,
+				7152BF73256365FE00A400A5 /* ExplorePageController.swift in Sources */,
 				B0E7902E2025085E002DA8AF /* HelperExtensions.swift in Sources */,
 				B0E7902A2025085E002DA8AF /* LoginViewController.swift in Sources */,
 				B0E7902F2025085E002DA8AF /* SignUpViewController.swift in Sources */,
+				7152BF792563762000A400A5 /* AreaContainer.swift in Sources */,
 				B0E7902C2025085E002DA8AF /* RoundedWhiteButton.swift in Sources */,
+				7152BF762563756700A400A5 /* ListedItem.swift in Sources */,
 				745B065725520B100067EE75 /* ItemViewController.swift in Sources */,
 				745B065425520AF20067EE75 /* ItemView.swift in Sources */,
 				745B065E255218EC0067EE75 /* CatalogAPI.swift in Sources */,
@@ -224,6 +242,8 @@
 				745B066525521CAC0067EE75 /* HTTPClient.swift in Sources */,
 				B0E7902D2025085E002DA8AF /* InitialViewController.swift in Sources */,
 				B0E7901320250813002DA8AF /* AppDelegate.swift in Sources */,
+				7152BF7C2563792500A400A5 /* SelfConfiguringCell.swift in Sources */,
+				7152BF7F256379C600A400A5 /* FeaturedCell.swift in Sources */,
 				9E51E12E25522F3D0062857E /* User.swift in Sources */,
 				B0E7902B2025085E002DA8AF /* MenuViewController.swift in Sources */,
 			);
