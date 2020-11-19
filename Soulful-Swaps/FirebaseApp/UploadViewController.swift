@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DropDown
 
 class UploadViewController: UIViewController {
     
@@ -44,6 +45,23 @@ extension UploadViewController: UIImagePickerControllerDelegate, UINavigationCon
             imageView.image = image
         }
         dismiss(animated: true, completion: nil)
+    }
+    
+    let dropDown = DropDown() //2
+    
+    override func viewDidLoad() {
+      super.viewDidLoad()
+    }
+    
+    @IBAction func tapChooseMenuItem(_ sender: UIButton) {//3
+      dropDown.dataSource = ["Never worn", "Lightly Worn", "Worn", "Roughly Worn"]//4
+      dropDown.anchorView = sender //5
+      dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height) //6
+      dropDown.show() //7
+      dropDown.selectionAction = { [weak self] (index: Int, item: String) in //8
+        guard let _ = self else { return }
+        sender.setTitle(item, for: .normal) //9
+      }
     }
 }
 
