@@ -16,6 +16,7 @@ class UploadViewController: UIViewController {
     @IBOutlet weak var wear: UITextField!
     @IBOutlet weak var size: UITextField!
     var imagePicker = UIImagePickerController()
+    let dropDown = DropDown() //2
     
     @IBOutlet weak var saveButton: UIButton!
     
@@ -49,11 +50,6 @@ extension UploadViewController: UIImagePickerControllerDelegate, UINavigationCon
         dismiss(animated: true, completion: nil)
     }
     
-    let dropDown = DropDown() //2
-    
-    override func viewDidLoad() {
-      super.viewDidLoad()
-    }
     
     @IBAction func tapChooseMenuItem(_ sender: UIButton) {//3
       dropDown.dataSource = ["Never worn", "Lightly Worn", "Worn", "Roughly Worn"]//4
