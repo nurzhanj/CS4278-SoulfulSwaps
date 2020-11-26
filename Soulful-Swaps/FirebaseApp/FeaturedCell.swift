@@ -58,7 +58,7 @@ class FeaturedCell: UICollectionViewCell, SelfConfiguringCell {
         brand.text = item.brand.uppercased()
         let points = String(item.pointVal)
         pointVal.text = points.uppercased()
-        image.image = item.picture
+        image.image = UIImage(named: item.picture)
     }
     
     required init?(coder: NSCoder) {

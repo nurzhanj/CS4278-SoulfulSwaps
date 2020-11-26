@@ -10,6 +10,7 @@ import UIKit
 @available(iOS 13.0, *)
 class ExplorePageController: UIViewController {
     
+    var sections: [AreaContainer]!
     var collectionView : UICollectionView!
     var dataSource : UICollectionViewDiffableDataSource<AreaContainer, ListedItem>?
     
@@ -33,6 +34,5 @@ class ExplorePageController: UIViewController {
         cell.configure(with: item)
         return cell;
     }
-    
     
 }

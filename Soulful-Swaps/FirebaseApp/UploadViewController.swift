@@ -16,6 +16,8 @@ class UploadViewController: UIViewController {
     @IBOutlet weak var size: UITextField!
     var imagePicker = UIImagePickerController()
     
+    @IBOutlet weak var saveButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
@@ -27,8 +29,8 @@ class UploadViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func saveImage(_ sender: UIButton) {
-    }
+   // @IBAction func saveImage(_ sender: UIButton) {
+    // }
     
     @IBAction func onClickPickImage(_ sender: Any) {
         imagePicker.sourceType = .savedPhotosAlbum
