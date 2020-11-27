@@ -13,7 +13,9 @@
 		710FFE60256F2F3700AB3F5D /* PfpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FFE5F256F2F3700AB3F5D /* PfpViewController.swift */; };
 		7152BF762563756700A400A5 /* ListedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152BF752563756700A400A5 /* ListedItem.swift */; };
 		719E8AF52551E8EC001D22F6 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719E8AF42551E8EC001D22F6 /* UploadViewController.swift */; };
-		71D75FDF256F54CB00F0A8A7 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D75FDE256F54CB00F0A8A7 /* ItemCollectionViewCell.swift */; };
+		71A72ADC256FF69F00A93D11 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A72ADB256FF69F00A93D11 /* DetailViewController.swift */; };
+		71A72AE025706EE200A93D11 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A72ADF25706EE200A93D11 /* ItemCollectionViewCell.swift */; };
+		71A72AE325708AAD00A93D11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71A72AE225708AAD00A93D11 /* GoogleService-Info.plist */; };
 		745B065125520AE40067EE75 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B065025520AE40067EE75 /* Item.swift */; };
 		745B065425520AF20067EE75 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B065325520AF20067EE75 /* ItemView.swift */; };
 		745B065725520B100067EE75 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B065625520B100067EE75 /* ItemViewController.swift */; };
@@ -43,7 +45,9 @@
 		710FFE5F256F2F3700AB3F5D /* PfpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PfpViewController.swift; sourceTree = "<group>"; };
 		7152BF752563756700A400A5 /* ListedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListedItem.swift; sourceTree = "<group>"; };
 		719E8AF42551E8EC001D22F6 /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
-		71D75FDE256F54CB00F0A8A7 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		71A72ADB256FF69F00A93D11 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		71A72ADF25706EE200A93D11 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		71A72AE225708AAD00A93D11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		745B065025520AE40067EE75 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		745B065325520AF20067EE75 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		745B065625520B100067EE75 /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
@@ -126,7 +130,6 @@
 				1D5A84515DE56DDA06FAF6C7 /* Pods-FirebaseApp.debug.xcconfig */,
 				41261D3BE9E9E3811FD8F131 /* Pods-FirebaseApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -151,6 +154,7 @@
 		B0E7901120250813002DA8AF /* FirebaseApp */ = {
 			isa = PBXGroup;
 			children = (
+				71A72AE225708AAD00A93D11 /* GoogleService-Info.plist */,
 				745B065C255218990067EE75 /* API */,
 				745B064F25520AB40067EE75 /* Controller */,
 				745B0648255208870067EE75 /* View */,
@@ -173,7 +177,8 @@
 				710FFE53256EA3C900AB3F5D /* ListedItemTableViewController.swift */,
 				710FFE56256EA6B400AB3F5D /* ListedItemTableViewCell.swift */,
 				710FFE5F256F2F3700AB3F5D /* PfpViewController.swift */,
-				71D75FDE256F54CB00F0A8A7 /* ItemCollectionViewCell.swift */,
+				71A72ADB256FF69F00A93D11 /* DetailViewController.swift */,
+				71A72ADF25706EE200A93D11 /* ItemCollectionViewCell.swift */,
 			);
 			path = FirebaseApp;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E7901D20250813002DA8AF /* LaunchScreen.storyboard in Resources */,
+				71A72AE325708AAD00A93D11 /* GoogleService-Info.plist in Resources */,
 				B0E7901A20250813002DA8AF /* Assets.xcassets in Resources */,
 				B0E7901820250813002DA8AF /* Main.storyboard in Resources */,
 			);
@@ -255,11 +261,41 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FirebaseApp/Pods-FirebaseApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseFirestore/FirebaseFirestore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/abseil/absl.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseFirestore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/absl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -296,7 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				745B065125520AE40067EE75 /* Item.swift in Sources */,
-				71D75FDF256F54CB00F0A8A7 /* ItemCollectionViewCell.swift in Sources */,
+				71A72AE025706EE200A93D11 /* ItemCollectionViewCell.swift in Sources */,
 				745B0662255219120067EE75 /* PersistenceManager.swift in Sources */,
 				B0E7902E2025085E002DA8AF /* HelperExtensions.swift in Sources */,
 				710FFE60256F2F3700AB3F5D /* PfpViewController.swift in Sources */,
@@ -306,6 +342,7 @@
 				7152BF762563756700A400A5 /* ListedItem.swift in Sources */,
 				745B065725520B100067EE75 /* ItemViewController.swift in Sources */,
 				745B065425520AF20067EE75 /* ItemView.swift in Sources */,
+				71A72ADC256FF69F00A93D11 /* DetailViewController.swift in Sources */,
 				745B065E255218EC0067EE75 /* CatalogAPI.swift in Sources */,
 				719E8AF52551E8EC001D22F6 /* UploadViewController.swift in Sources */,
 				710FFE57256EA6B400AB3F5D /* ListedItemTableViewCell.swift in Sources */,

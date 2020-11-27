@@ -5,6 +5,8 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
+
 
 class LoginViewController:UIViewController, UITextFieldDelegate {
     
@@ -124,5 +126,17 @@ class LoginViewController:UIViewController, UITextFieldDelegate {
         setContinueButton(enabled: false)
         continueButton.setTitle("", for: .normal)
         activityView.startAnimating()
+        
+        
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: pass){
+            user, error in
+            if user != nil && error == nil{
+                print(FirebaseAuth.Auth.auth().currentUser?.displayName!)
+                self.performSegue(withIdentifier: "enterApplication", sender: self)
+            }
+            else{
+                print("error logging in")
+            }
+        }
     }
 }

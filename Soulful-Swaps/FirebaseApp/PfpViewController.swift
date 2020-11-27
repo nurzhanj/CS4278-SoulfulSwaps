@@ -3,42 +3,89 @@
 //  FirebaseApp
 //
 //  Created by Doug Dahl on 11/25/20.
-//  Copyright © 2020 Robert Canton. All rights reserved.
 //
 
 import UIKit
+import FirebaseAuth
 
-class PfpViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return user.items.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as! ItemCollectionViewCell
-        cell.itemView.image = UIImage(named: user.items[indexPath.row].picture)
-        cell.backgroundColor = UIColor.red
-        return cell
-    }
+class PfpViewController: UIViewController {
     
     
     
     @IBOutlet var coverImage: UIImageView!
     @IBOutlet var profilePicture: UIImageView!
 
-    @IBOutlet weak var itemCollectionView: UICollectionView!
-    
+
+    @IBOutlet var itemCollection: UICollectionView!
     var user = User()
     
     override func viewDidLoad() {
-        itemCollectionView.delegate = self
-        itemCollectionView.dataSource = self
+
         coverImage.image = user.bgImage
         profilePicture.image = user.pfp
         
-        
+        self.title = user.username
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func handleLogOut(_ target: UIBarButtonItem){
+        try! FirebaseAuth.Auth.auth().signOut()
+        self.performSegue(withIdentifier: "logOut", sender: self)
+    }
+
 }
+
+extension PfpViewController: UICollectionViewDataSource, UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return user.items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as! ItemCollectionViewCell
+        
+        cell.itemImage.image = UIImage(named: user.items[indexPath.row].picture)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if #available(iOS 13.0, *) {
+            let vc = storyboard?.instantiateViewController(identifier: "PfpDetailViewController") as! DetailViewController
+            
+            vc.item =  user.items[indexPath.row]
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            fatalError()
+        }
+        
+        
+    }
+    
+}
+
+extension PfpViewController: UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let bounds = itemCollection.bounds
+        
+        return CGSize(width: bounds.width/2 - 10, height: bounds.height/2-40)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+}
+

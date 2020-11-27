@@ -2,12 +2,12 @@
 //  SignUpViewController.swift
 //  CloudFunctions
 //
-//  Created by Robert Canton on 2017-09-13.
-//  Copyright © 2017 Robert Canton. All rights reserved.
 //
 import Foundation
 import UIKit
 import SQLite3
+import Firebase
+import FirebaseAuth
 
 class SignUpViewController:UIViewController, UITextFieldDelegate {
 
@@ -140,5 +140,38 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
         setContinueButton(enabled: false)
         continueButton.setTitle("", for: .normal)
         activityView.startAnimating()
+        
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pass){
+            user, error in
+            if error == nil && user != nil {
+                print("gogogo!")
+                
+                let changeRequest = FirebaseAuth.Auth.auth().currentUser?.createProfileChangeRequest()
+                changeRequest?.displayName = username
+                changeRequest?.commitChanges{ error in
+                    if error == nil{
+                        print("Username initialized successfully")
+                    }
+                    else{
+                        print("username not initialized successfully")
+                    }
+                }
+                
+                FirebaseAuth.Auth.auth().signIn(withEmail: email, password: pass){
+                    user, error in
+                    if user != nil && error == nil{
+                        self.performSegue(withIdentifier: "enterApp", sender: self)
+                    }
+                    else{
+                        print("error logging in")
+                    }
+                }
+                
+            }
+            else{
+                print("noooooooo")
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
 }

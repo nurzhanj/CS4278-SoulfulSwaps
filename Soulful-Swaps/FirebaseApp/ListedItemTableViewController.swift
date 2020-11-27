@@ -7,9 +7,10 @@
 
 import UIKit
 
+@available(iOS 13.0, *)
 class ListedItemTableViewController: UITableViewController {
     
-    let item = ListedItem()
+    let user = User()
     
     
 
@@ -32,7 +33,7 @@ class ListedItemTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return user.items.count
     }
 
 
@@ -40,15 +41,26 @@ class ListedItemTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ListedItemTableViewCell
         
         
+        let item = user.items[indexPath.row]
         let image = UIImage(named: item.picture)
+        let points = "Valued at " + String(item.pointVal) + " points"
+        print(points)
         cell.itemImage.image = image
         cell.itemName.text = item.name
-        cell.itemPoints.text = String(item.pointVal)
+        cell.itemPoints.text = points
         cell.itemSize.text = item.size
         cell.itemWear.text = item.wear
         // Configure the cell...
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = (storyboard?.instantiateViewController(identifier: "DetailViewController") as? DetailViewController)!
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        vc.item = user.items[indexPath.row]
     }
 
 }
