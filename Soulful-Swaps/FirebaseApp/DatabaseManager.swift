@@ -14,7 +14,14 @@ final class DatabaseManager{
     
     private let database = Database.database().reference();
     
-    public func insertUser(with user: User){
+    public func safeEmail(with email: String) -> String{
+        var safe = email.replacingOccurrences(of: "@", with: "-")
+        safe = email.replacingOccurrences(of: ".", with: "-")
+        return safe
+    }
+    
+    public func insertUser(with user: User,
+                           completion: @escaping ((Bool) -> Void)){
         var safe = user.username?.replacingOccurrences(of: ".", with: "-")
         safe = user.username?.replacingOccurrences(of: "#", with: "-")
         safe = user.username?.replacingOccurrences(of: "$", with: "-")
@@ -24,7 +31,52 @@ final class DatabaseManager{
         safe = user.username?.replacingOccurrences(of: " ", with: "-")
         database.child(user.safeEmail).setValue([
             "username":safe
-        ])
+        ], withCompletionBlock: {error, _ in
+            guard error == nil else{
+                print("db write failed")
+                completion(false)
+                return
+            }
+            
+            self.database.child("users").observeSingleEvent(of: .value, with: { snapshot in
+                if var usersCollection = snapshot.value as? [[String: String]]{
+                //append to user dict
+                    let newElement = [
+                        "username": user.username!,
+                        "email": user.safeEmail
+                    ]
+                    usersCollection.append(newElement)
+                    
+                    self.database.child("users").setValue(usersCollection, withCompletionBlock: {
+                        error, _ in
+                        guard error == nil else{
+                            completion(false)
+                            return
+                        }
+                        completion(true)
+                    })
+                }
+                else{
+                    //create dict
+                    let newCollection: [[String: String]] = [
+                        ["username": user.username!],
+                        ["email": user.safeEmail]
+                    ]
+                    
+                    self.database.child("users").setValue(newCollection, withCompletionBlock: {
+                        error, _ in
+                        guard error == nil else{
+                            completion(false)
+                            return
+                        }
+                        completion(true)
+                    })
+                }
+            
+            })
+            
+            
+        })
     }
     
     public func userExists(with email: String, completion: @escaping((Bool) -> Void)){
@@ -36,6 +88,128 @@ final class DatabaseManager{
             }
             completion(true)
         })
+    }
+    
+    public func getAllUsers(completion: @escaping (Result<[[String: String]], Error>) -> Void){
+        database.child("users").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value as? [[String: String]] else{
+                completion(.failure(DBError.failedToFetch))
+                return
+            }
+            
+            completion(.success(value))
+        })
+    }
+    
+    public enum DBError: Error{
+        case failedToFetch
+    }
+    
+}
+
+extension DatabaseManager{
+    
+    public func createNewConvo(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void){
+        //create new convo with target user email and first message sent
+        
+        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else{
+            return
+        }
+        
+        let updatedEmail = safeEmail(with: currentEmail)
+        
+        let ref = database.child("\(updatedEmail)")
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            guard var userNode = snapshot.value as? [String: Any] else {
+                completion(false)
+                print("user not found")
+                return
+            }
+            
+            let messageDate = firstMessage.sentDate
+            let dateString = ChatsViewController.dateFormatter.string(from: messageDate)
+            
+            var message = ""
+            
+            switch firstMessage.kind{
+            case .text(let messageText):
+                message = messageText
+            case .attributedText(_):
+                break
+            case .photo(_):
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+            }
+            
+            let newConvoData: [String: Any] = [
+                "ID": "conversation_\(firstMessage.messageId)",
+                "other_user_email": otherUserEmail,
+                "latest_message": [
+                    "date": dateString,
+                    "message": message,
+                    "isRead": false
+                ]
+            
+            ]
+            
+            if var conversations = userNode["conversations"] as? [[String: Any]]{
+                //convo array exists, append
+                
+                conversations.append(newConvoData)
+                userNode["conversations"] = conversations
+                ref.setValue(userNode, withCompletionBlock: {
+                    error, _ in
+                    guard error == nil else{
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                })
+                
+            }
+            else{
+                
+                //convo array doesn't exist, create it
+                userNode["conversations"] = [
+                    newConvoData
+                ]
+                
+                ref.setValue(userNode, withCompletionBlock: {
+                    error, _ in
+                    guard error == nil else{
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                })
+                
+            }
+        })
+    }
+    
+    public func getAllConvos(for email: String, completion: @escaping (Result<String, Error>) -> Void){
+        //fetches and returns all convos
+    }
+    
+    public func getAllMessagesForConvo(with id: String, completion: @escaping (Result<String, Error>) -> Void){
+        //get all messages in a convo
+    }
+    
+    public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void){
+        //sends a message to a pre-existing convo
     }
     
 }

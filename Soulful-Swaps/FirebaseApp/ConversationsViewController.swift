@@ -11,7 +11,9 @@ import JGProgressHUD
 
 class ConversationsViewController: UIViewController{
     
-    @IBOutlet var tableView: UITableView! = {
+    
+    
+    private let tableView: UITableView! = {
         let table = UITableView()
         table.isHidden = true
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -46,8 +48,25 @@ class ConversationsViewController: UIViewController{
     
     @objc private func didTapComposeButton(){
         let vc = NewConvoViewController()
+        vc.completion = { [weak self] result in
+            print("\(result)")
+            self?.createNewConvo(result: result)
+
+        }
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
+    }
+    
+    private func createNewConvo(result: [String: String]){
+        guard let username = result["username"], let email = result["email"] else{
+            return
+        }
+        let vc = ChatsViewController(with: email)
+        vc.isNewConvo = true
+        vc.title = username
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -81,7 +100,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = ChatsViewController()
+        let vc = ChatsViewController(with: "temp@gmail.com")
         vc.title = "Doug Dahl"
         vc.navigationItem.largeTitleDisplayMode = .never
         self.navigationController?.pushViewController(vc, animated: true)

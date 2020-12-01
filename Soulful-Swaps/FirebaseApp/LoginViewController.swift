@@ -148,6 +148,7 @@ class LoginViewController:UIViewController, UITextFieldDelegate {
             user, error in
             if user != nil && error == nil{
                 print(FirebaseAuth.Auth.auth().currentUser?.displayName!)
+                UserDefaults.standard.setValue(email, forKey: "email")
                 self.performSegue(withIdentifier: "enterApplication", sender: self)
             }
             else{
@@ -182,7 +183,13 @@ extension LoginViewController: LoginButtonDelegate{
             
             DatabaseManager.shared.userExists(with: fbUser.safeEmail, completion: { exists in
                 if !exists{
-                    DatabaseManager.shared.insertUser(with: fbUser)
+                    DatabaseManager.shared.insertUser(with: fbUser, completion: { completed in
+                        guard completed == true else{
+                            print("unable to add fb user to db")
+                            return
+                        }
+                        
+                    })
                 }
             })
             
@@ -196,6 +203,8 @@ extension LoginViewController: LoginButtonDelegate{
                     return
                 }
                 print("logged in w FB!")
+                
+                UserDefaults.standard.setValue(email, forKey: "email")
                 strongSelf.performSegue(withIdentifier: "enterApplication", sender: strongSelf)
             })
             

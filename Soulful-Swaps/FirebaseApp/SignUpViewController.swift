@@ -163,7 +163,12 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
                     changeRequest?.commitChanges{ error in
                         if error == nil{
                             print("Username initialized successfully")
-                            DatabaseManager.shared.insertUser(with: User(user_id: 1, username: username, email: email, password: pass, pfp: "", bgImage: "", items: []))
+                            DatabaseManager.shared.insertUser(with: User(user_id: 1, username: username, email: email, password: pass, pfp: "", bgImage: "", items: []), completion: { completed in
+                                guard completed == true else{
+                                    print("unable to insert user")
+                                    return
+                                }
+                            })
                         }
                         else{
                             print("username not initialized successfully")
