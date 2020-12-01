@@ -278,8 +278,30 @@ extension DatabaseManager{
         
     }
     
-    public func getAllConvos(for email: String, completion: @escaping (Result<String, Error>) -> Void){
+    public func getAllConvos(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void){
         //fetches and returns all convos
+        database.child("\(email)/conversations").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value as? [[String: Any]] else{
+                print("failed to fetch convos")
+                return
+            }
+            
+            let conversations: [Conversation] = value.compactMap({ dictionary in
+                guard let conversationID = dictionary["ID"] as? String,
+                      let name = dictionary["name"] as? String,
+                      let otherUserEmail = dictionary["other_user_email"] as? String,
+                      let latestMessage = dictionary["latest_message"] as? [String: Any],
+                      let date = latestMessage["date"] as? String,
+                      let message = latestMessage["message"] as? String,
+                      let isRead = latestMessage["isRead"] as? Bool else{
+                    return nil
+                }
+                
+                let latestMessageObject = LatestMessage(date: date, text: message, isRead: isRead)
+                return Conversation(id: conversationID, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessageObject)
+                
+            })
+        })
     }
     
     public func getAllMessagesForConvo(with id: String, completion: @escaping (Result<String, Error>) -> Void){
