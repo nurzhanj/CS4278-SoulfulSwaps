@@ -16,7 +16,7 @@ final class DatabaseManager{
     
     public func safeEmail(with email: String) -> String{
         var safe = email.replacingOccurrences(of: "@", with: "-")
-        safe = email.replacingOccurrences(of: ".", with: "-")
+        safe = safe.replacingOccurrences(of: ".", with: "-")
         return safe
     }
     
@@ -58,10 +58,10 @@ final class DatabaseManager{
                 }
                 else{
                     //create dict
-                    let newCollection: [[String: String]] = [
-                        ["username": user.username!],
-                        ["email": user.safeEmail]
-                    ]
+                    let newCollection: [[String: String]] = [[
+                        "username": user.username!,
+                        "email": user.safeEmail
+                    ]]
                     
                     self.database.child("users").setValue(newCollection, withCompletionBlock: {
                         error, _ in
@@ -118,8 +118,10 @@ extension DatabaseManager{
         
         let updatedEmail = safeEmail(with: currentEmail)
         
+        print(updatedEmail)
+        
         let ref = database.child("\(updatedEmail)")
-        ref.observeSingleEvent(of: .value, with: { snapshot in
+        ref.observeSingleEvent(of: .value, with: { [weak self] snapshot in
             guard var userNode = snapshot.value as? [String: Any] else {
                 completion(false)
                 print("user not found")
