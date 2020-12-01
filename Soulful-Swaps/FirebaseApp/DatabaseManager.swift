@@ -109,7 +109,7 @@ final class DatabaseManager{
 
 extension DatabaseManager{
     
-    public func createNewConvo(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void){
+    public func createNewConvo(with otherUserEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void){
         //create new convo with target user email and first message sent
         
         guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else{
@@ -156,9 +156,11 @@ extension DatabaseManager{
                 break
             }
             
+            let convoID = "conversation_\(firstMessage.messageId)"
             let newConvoData: [String: Any] = [
-                "ID": "conversation_\(firstMessage.messageId)",
+                "ID": convoID,
                 "other_user_email": otherUserEmail,
+                "name": name,
                 "latest_message": [
                     "date": dateString,
                     "message": message,
@@ -172,13 +174,13 @@ extension DatabaseManager{
                 
                 conversations.append(newConvoData)
                 userNode["conversations"] = conversations
-                ref.setValue(userNode, withCompletionBlock: {
+                ref.setValue(userNode, withCompletionBlock: { [weak self]
                     error, _ in
                     guard error == nil else{
                         completion(false)
                         return
                     }
-                    completion(true)
+                    self?.finishCreatingConvo(conversationID: convoID, name: name, firstMessage: firstMessage, completion: completion)
                 })
                 
             }
@@ -189,17 +191,91 @@ extension DatabaseManager{
                     newConvoData
                 ]
                 
-                ref.setValue(userNode, withCompletionBlock: {
+                ref.setValue(userNode, withCompletionBlock: { [weak self]
                     error, _ in
                     guard error == nil else{
                         completion(false)
                         return
                     }
-                    completion(true)
+                    
+                    self?.finishCreatingConvo(conversationID: convoID, name: name, firstMessage: firstMessage, completion: completion)
                 })
                 
             }
         })
+    }
+    
+    private func finishCreatingConvo(conversationID: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void){
+        
+//        "id": String,
+//        "type": text, photo, video,
+//        "content": String,
+//        "date": Date()
+//        "sender_email": String,
+//        "isRead" : Bool
+        
+        
+        var content = ""
+        
+        switch firstMessage.kind{
+        case .text(let messageText):
+            content = messageText
+        case .attributedText(_):
+            break
+        case .photo(_):
+            break
+        case .video(_):
+            break
+        case .location(_):
+            break
+        case .emoji(_):
+            break
+        case .audio(_):
+            break
+        case .contact(_):
+            break
+        case .linkPreview(_):
+            break
+        case .custom(_):
+            break
+        }
+        
+        let messageDate = firstMessage.sentDate
+        let dateString = ChatsViewController.dateFormatter.string(from: messageDate)
+        
+        guard let myEmail = UserDefaults.standard.value(forKey: "email") as? String else{
+            completion(false)
+            return
+        }
+        
+        let currentUserEmail = safeEmail(with: myEmail)
+        
+        let message: [String: Any] = [
+        
+            "id": firstMessage.messageId,
+            "type": firstMessage.kind.messageKindString,
+            "content": content,
+            "date": dateString,
+            "sender_email": currentUserEmail,
+            "isRead" : false,
+            "name": name
+            
+        ]
+        let value: [String: Any] = [
+            
+            "messages": [
+                message
+            ]
+        
+        ]
+        database.child("\(conversationID)").setValue(value, withCompletionBlock: { error, _ in
+            guard error == nil else{
+                completion(false)
+                return
+            }
+            completion(true)
+        })
+        
     }
     
     public func getAllConvos(for email: String, completion: @escaping (Result<String, Error>) -> Void){

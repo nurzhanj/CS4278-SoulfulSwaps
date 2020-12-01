@@ -13,6 +13,34 @@ struct Message: MessageType {
 
 }
 
+extension MessageKind{
+    var messageKindString: String{
+        switch self{
+        
+        case .text(_):
+            return "text"
+        case .attributedText(_):
+            return "attr_text"
+        case .photo(_):
+            return "photo"
+        case .video(_):
+            return "video"
+        case .location(_):
+            return "location"
+        case .emoji(_):
+            return "emoji"
+        case .audio(_):
+            return "audio"
+        case .contact(_):
+            return "contact"
+        case .linkPreview(_):
+            return "linkPreview"
+        case .custom(_):
+            return "custom"
+        }
+    }
+}
+
 struct Sender: SenderType{
     var senderId: String
     
@@ -22,6 +50,12 @@ struct Sender: SenderType{
 
 
 class ChatsViewController: MessagesViewController {
+    
+    public func safeEmail(with email: String) -> String{
+        var safe = email.replacingOccurrences(of: "@", with: "-")
+        safe = safe.replacingOccurrences(of: ".", with: "-")
+        return safe
+    }
     
     public static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -88,7 +122,7 @@ extension ChatsViewController: InputBarAccessoryViewDelegate{
         if isNewConvo{
             //create convo in db
             let message = Message(sender: selfSender, messageId: messageID, sentDate: Date(), kind: .text(text))
-            DatabaseManager.shared.createNewConvo(with: otherUserEmail, firstMessage: message, completion: {
+            DatabaseManager.shared.createNewConvo(with: otherUserEmail, name: self.title ?? "User", firstMessage: message, completion: {
                 success in
                 if success{
                     print("message sent")
@@ -109,9 +143,12 @@ extension ChatsViewController: InputBarAccessoryViewDelegate{
         guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") else{
             return nil
         }
+        
+        let myEmail = safeEmail(with: currentUserEmail as! String)
+        
         let dateString = Self.dateFormatter.string(from: Date())
         
-        let newID = "\(otherUserEmail)_\(currentUserEmail)_\(dateString)"
+        let newID = "\(otherUserEmail)_\(myEmail)_\(dateString)"
         return newID
     }
     
