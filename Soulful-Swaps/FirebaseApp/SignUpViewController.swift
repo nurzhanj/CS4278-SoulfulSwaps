@@ -141,37 +141,58 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
         continueButton.setTitle("", for: .normal)
         activityView.startAnimating()
         
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pass){
-            user, error in
-            if error == nil && user != nil {
-                print("gogogo!")
-                
-                let changeRequest = FirebaseAuth.Auth.auth().currentUser?.createProfileChangeRequest()
-                changeRequest?.displayName = username
-                changeRequest?.commitChanges{ error in
-                    if error == nil{
-                        print("Username initialized successfully")
-                    }
-                    else{
-                        print("username not initialized successfully")
-                    }
-                }
-                
-                FirebaseAuth.Auth.auth().signIn(withEmail: email, password: pass){
-                    user, error in
-                    if user != nil && error == nil{
-                        self.performSegue(withIdentifier: "enterApp", sender: self)
-                    }
-                    else{
-                        print("error logging in")
-                    }
-                }
-                
+        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        
+        DatabaseManager.shared.userExists(with: safeEmail, completion: { [weak self] exists in
+            guard let strongSelf = self else{
+                return
             }
-            else{
-                print("noooooooo")
-                self.dismiss(animated: true, completion: nil)
+            guard !exists else{
+                //creating user with pre-existing email
+                return
             }
-        }
+            
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pass){
+                user, error in
+                if error == nil && user != nil {
+                    print("gogogo!")
+                    
+                    let changeRequest = FirebaseAuth.Auth.auth().currentUser?.createProfileChangeRequest()
+                    changeRequest?.displayName = username
+                    changeRequest?.commitChanges{ error in
+                        if error == nil{
+                            print("Username initialized successfully")
+                            DatabaseManager.shared.insertUser(with: User(user_id: 1, username: username, email: email, password: pass, pfp: "", bgImage: "", items: []))
+                        }
+                        else{
+                            print("username not initialized successfully")
+                        }
+                    }
+                    
+                    FirebaseAuth.Auth.auth().signIn(withEmail: email, password: pass){
+                        user, error in
+                        if user != nil && error == nil{
+                            strongSelf.performSegue(withIdentifier: "enterApp", sender: self)
+                        }
+                        else{
+                            print("error logging in")
+                        }
+                    }
+                    
+                }
+                else{
+                    strongSelf.alertUserLoginError()
+                    print("noooooooo")
+                }
+            }
+            
+        })
+    }
+    
+    func alertUserLoginError(message: String = "Sorry, there's already an account associated with that email address"){
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
 }

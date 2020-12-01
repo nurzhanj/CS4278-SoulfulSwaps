@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class InitialViewController: UIViewController {
     
@@ -18,9 +19,18 @@ class InitialViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        if FirebaseAuth.Auth.auth().currentUser == nil{
+            self.performSegue(withIdentifier: "toMenuScreen", sender: self)
+        }
+        else{
+            self.performSegue(withIdentifier: "validSession", sender: self)
+        }
+        
         //- Todo: Check if user is authenticated. If so, segue to the HomeViewController, otherwise, segue to the MenuViewController
+        
+        
      
-        self.performSegue(withIdentifier: "toMenuScreen", sender: self)
+        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -28,4 +38,5 @@ class InitialViewController: UIViewController {
             return .lightContent
         }
     }
+    
 }

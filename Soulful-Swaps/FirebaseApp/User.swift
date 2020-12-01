@@ -16,6 +16,12 @@ class User {
     var pfp: UIImage
     var bgImage: UIImage
     var items: [ListedItem]
+    
+    var safeEmail: String{
+        var safeEmail = email?.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail?.replacingOccurrences(of: "@", with: "-")
+        return safeEmail!
+    }
 
     init(user_id:Int, username:String?, email:String?, password:String, pfp:String, bgImage:String, items: [ListedItem])
     {
@@ -23,9 +29,11 @@ class User {
         self.username = username
         self.password = password
         self.email = email
-        self.pfp = UIImage(named: pfp)!
-        self.bgImage = UIImage(named: bgImage)!
-        self.items = items
+        self.pfp = UIImage(named: "profile")!
+        self.bgImage = UIImage(named: "userBgImageTest")!
+        self.items = [ListedItem](repeating: ListedItem(), count: 9)
+        print(self.email!)
+        print(self.username!)
     }
     
     //default ctor for testing

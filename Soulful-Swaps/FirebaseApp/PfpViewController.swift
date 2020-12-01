@@ -31,8 +31,23 @@ class PfpViewController: UIViewController {
     }
     
     @IBAction func handleLogOut(_ target: UIBarButtonItem){
-        try! FirebaseAuth.Auth.auth().signOut()
-        self.performSegue(withIdentifier: "logOut", sender: self)
+        
+        //action sheet needs additional helpers to configure correctly on ipad --
+        //https://www.youtube.com/watch?v=W8NzdN0h50I , 14:00
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { [weak self] _ in
+            guard let strongSelf = self else{
+                return
+            }
+            do {
+                try! FirebaseAuth.Auth.auth().signOut()
+                strongSelf.performSegue(withIdentifier: "logOut", sender: strongSelf)
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true)
+        
     }
 
 }
