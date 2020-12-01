@@ -462,7 +462,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fxv-Vn-KDE">
-                                <rect key="frame" x="20" y="94" width="374" height="496"/>
+                                <rect key="frame" x="20" y="138" width="374" height="452"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                 <color key="tintColor" systemColor="systemGreenColor"/>
                             </imageView>
@@ -632,7 +632,7 @@
                         <leftBarButtonItems>
                             <barButtonItem title="Item" image="message" catalog="system" id="70H-OC-vTJ">
                                 <connections>
-                                    <segue destination="R6T-Lf-gcl" kind="presentation" modalPresentationStyle="fullScreen" id="7A1-be-Ytx"/>
+                                    <segue destination="OAZ-Bv-Svm" kind="presentation" modalPresentationStyle="fullScreen" id="7A1-be-Ytx"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" image="square.and.arrow.up.fill" catalog="system" id="sAh-lS-Pdt">
@@ -758,7 +758,7 @@
                             </barButtonItem>
                             <barButtonItem title="Item" image="message" catalog="system" id="vFg-Pt-mMN">
                                 <connections>
-                                    <segue destination="R6T-Lf-gcl" kind="presentation" modalPresentationStyle="fullScreen" id="xVH-P1-uqh"/>
+                                    <segue destination="OAZ-Bv-Svm" kind="presentation" modalPresentationStyle="fullScreen" id="xVH-P1-uqh"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -962,7 +962,7 @@
                                     <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
                                 </state>
                                 <connections>
-                                    <segue destination="R6T-Lf-gcl" kind="presentation" modalPresentationStyle="fullScreen" id="6fE-xw-WKG"/>
+                                    <segue destination="OAZ-Bv-Svm" kind="presentation" modalPresentationStyle="fullScreen" id="6fE-xw-WKG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1015,41 +1015,14 @@
                     <view key="view" contentMode="scaleToFill" id="tZr-bt-ZlJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="POg-9v-PWd">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Messages" largeTitleDisplayMode="always" id="ZwI-H9-c6R">
-                                        <leftBarButtonItems>
-                                            <barButtonItem title="Item" image="network" catalog="system" id="T23-w9-KQo">
-                                                <connections>
-                                                    <segue destination="kdd-cE-CWC" kind="presentation" modalPresentationStyle="fullScreen" id="pPs-Bg-4Uj"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem title="Item" image="square.and.arrow.up.fill" catalog="system" id="2Pb-Hr-W0w">
-                                                <connections>
-                                                    <segue destination="KeJ-pM-39y" kind="show" id="iWC-KR-6hW"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </leftBarButtonItems>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" image="rectangle.stack.person.crop" catalog="system" id="3ge-VM-R9J">
-                                            <connections>
-                                                <segue destination="mfC-ga-OEb" kind="presentation" modalPresentationStyle="fullScreen" id="iKb-qz-mee"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="PId-GU-2st"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="4Ky-4B-yrJ"/>
+                    <navigationItem key="navigationItem" id="3f9-NR-Qj6"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NTu-V1-y79" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8213.04347826087" y="909.375"/>
+            <point key="canvasLocation" x="9222" y="948"/>
         </scene>
         <!--InitialViewController-->
         <scene sceneID="6ab-wZ-pIY">
@@ -1159,11 +1132,29 @@
             </objects>
             <point key="canvasLocation" x="5821.739130434783" y="130.58035714285714"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hRX-FT-iMW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="OAZ-Bv-Svm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eKA-5I-gsi">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="R6T-Lf-gcl" kind="relationship" relationship="rootViewController" id="gUn-2j-PKI"/>
+                        <segue destination="kdd-cE-CWC" kind="presentation" identifier="messageToMarketplace" modalPresentationStyle="fullScreen" id="6Bw-Iu-9Hb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SJa-vJ-fBk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7932" y="948"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="k4D-kq-qtT"/>
-        <segue reference="D4m-DW-rmb"/>
-        <segue reference="7A1-be-Ytx"/>
+        <segue reference="6fE-xw-WKG"/>
+        <segue reference="6Bw-Iu-9Hb"/>
         <segue reference="3TT-9l-4uc"/>
     </inferredMetricsTieBreakers>
     <resources>
