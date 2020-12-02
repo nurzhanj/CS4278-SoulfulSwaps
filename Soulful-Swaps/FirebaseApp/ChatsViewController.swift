@@ -77,30 +77,6 @@ class ChatsViewController: MessagesViewController {
         return Sender(senderId: mEmail, displayName: "Me")
 
     }()
-    
-    private func listenForMessages(id: String, shouldScrollToBottom: Bool){
-        DatabaseManager.shared.getAllMessagesForConvo(with: id, completion: { [weak self] result in
-            switch result{
-            case .success(let messages):
-                guard !messages.isEmpty else{
-                    return
-                }
-                self?.messages = messages
-                
-                DispatchQueue.main.async {
-                    self?.messagesCollectionView.reloadDataAndKeepOffset()
-                    if shouldScrollToBottom{
-                        self?.messagesCollectionView.reloadData()
-                    }
-                    self?.messagesCollectionView.reloadDataAndKeepOffset()
-                }
-                
-                
-            case .failure(let error):
-                print("failed to get messages: \(error)")
-            }
-        })
-    }
 
     init(with email: String, id: String?){
         self.otherUserEmail = email
@@ -128,9 +104,32 @@ class ChatsViewController: MessagesViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         messageInputBar.inputTextView.becomeFirstResponder()
-        if let convoID = conversationID{
+        if let convoID = conversationID {
             listenForMessages(id: convoID, shouldScrollToBottom: true)
         }
+    }
+    
+    private func listenForMessages(id: String, shouldScrollToBottom: Bool){
+        DatabaseManager.shared.getAllMessagesForConvo(with: id, completion: { [weak self] result in
+            switch result{
+            case .success(let messages):
+                guard !messages.isEmpty else{
+                    return
+                }
+                self?.messages = messages
+                
+                DispatchQueue.main.async {
+                    self?.messagesCollectionView.reloadDataAndKeepOffset()
+                    if shouldScrollToBottom{
+                        self?.messagesCollectionView.scrollToBottom()
+                    }
+                }
+                
+                
+            case .failure(let error):
+                print("failed to get messages: \(error)")
+            }
+        })
     }
     
 
@@ -154,6 +153,7 @@ extension ChatsViewController: InputBarAccessoryViewDelegate{
                 success in
                 if success{
                     print("message sent")
+                    self?.messageInputBar.inputTextView.text = nil
                     self?.isNewConvo = false
                 }
                 else{
@@ -162,10 +162,15 @@ extension ChatsViewController: InputBarAccessoryViewDelegate{
             })
         }
         else{
+            
+            guard let convID = conversationID, let name = self.title else{
+                return
+            }
             //append to existing convo data
-            DatabaseManager.shared.sendMessage(to: self.otherUserEmail, message: message, completion: {
+            DatabaseManager.shared.sendMessage(to: convID, name: name, message: message, completion: {
                 success in
                 if success{
+                    self.messageInputBar.inputTextView.text = nil
                     print("message sent to preexisting convo")
                 }
                 else{

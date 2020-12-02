@@ -359,8 +359,77 @@ extension DatabaseManager{
         })
     }
     
-    public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void){
+    public func sendMessage(to conversation: String, name: String, message: Message, completion: @escaping (Bool) -> Void){
         //sends a message to a pre-existing convo
+        database.child("\(conversation)/messages").observeSingleEvent(of: .value, with: { [weak self] snapshot in
+            guard let strongSelf = self else{
+                return
+            }
+            guard var currentMessages = snapshot.value as? [[String: Any]] else{
+                completion(false)
+                return
+            }
+            
+            var content = ""
+            
+            switch message.kind{
+            case .text(let messageText):
+                content = messageText
+            case .attributedText(_):
+                break
+            case .photo(_):
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+            }
+            
+            let messageDate = message.sentDate
+            let dateString = ChatsViewController.dateFormatter.string(from: messageDate)
+            
+            guard let myEmail = UserDefaults.standard.value(forKey: "email") as? String else{
+                completion(false)
+                return
+            }
+            
+            let currentUserEmail = strongSelf.safeEmail(with: myEmail)
+            
+            let message: [String: Any] = [
+            
+                "id": message.messageId,
+                "type": message.kind.messageKindString,
+                "content": content,
+                "date": dateString,
+                "sender_email": currentUserEmail,
+                "isRead" : false,
+                "name": name
+                
+            ]
+            
+            currentMessages.append(message)
+            strongSelf.database.child("\(conversation)/messages").setValue(currentMessages, withCompletionBlock: { error, _ in
+                guard error == nil else{
+                    completion(false)
+                    return
+                }
+                completion(true)
+            })
+            
+        })
+        
+        
+        
     }
     
 }

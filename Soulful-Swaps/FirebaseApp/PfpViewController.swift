@@ -24,7 +24,7 @@ class PfpViewController: UIViewController {
         coverImage.image = user.bgImage
         profilePicture.image = user.pfp
         
-        self.title = user.username
+        self.title = UserDefaults.standard.value(forKey: "username") as! String
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
