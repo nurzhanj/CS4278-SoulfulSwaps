@@ -149,6 +149,7 @@ class LoginViewController:UIViewController, UITextFieldDelegate {
             if user != nil && error == nil{
                 print(FirebaseAuth.Auth.auth().currentUser?.displayName!)
                 UserDefaults.standard.setValue(email, forKey: "email")
+                UserDefaults.standard.setValue(FirebaseAuth.Auth.auth().currentUser?.displayName, forKey: "username")
                 self.performSegue(withIdentifier: "enterApplication", sender: self)
             }
             else{
@@ -205,6 +206,7 @@ extension LoginViewController: LoginButtonDelegate{
                 print("logged in w FB!")
                 
                 UserDefaults.standard.setValue(email, forKey: "email")
+                UserDefaults.standard.setValue(userName, forKey: "username")
                 strongSelf.performSegue(withIdentifier: "enterApplication", sender: strongSelf)
             })
             

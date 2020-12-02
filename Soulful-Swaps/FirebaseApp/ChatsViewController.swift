@@ -51,7 +51,7 @@ struct Sender: SenderType{
 
 class ChatsViewController: MessagesViewController {
     
-    public func safeEmail(with email: String) -> String{
+    public static func safeEmail(with email: String) -> String{
         var safe = email.replacingOccurrences(of: "@", with: "-")
         safe = safe.replacingOccurrences(of: ".", with: "-")
         return safe
@@ -67,20 +67,46 @@ class ChatsViewController: MessagesViewController {
     
     public var isNewConvo = false
     public let otherUserEmail: String
+    private let conversationID: String?
     private var messages = [Message]()
     private var selfSender: Sender? = {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
             return nil
         }
-        return Sender(senderId: email as! String, displayName: "John Doe")
+        let mEmail = safeEmail(with: UserDefaults.standard.value(forKey: "email") as! String)
+        return Sender(senderId: mEmail, displayName: "Me")
 
     }()
     
-    
+    private func listenForMessages(id: String, shouldScrollToBottom: Bool){
+        DatabaseManager.shared.getAllMessagesForConvo(with: id, completion: { [weak self] result in
+            switch result{
+            case .success(let messages):
+                guard !messages.isEmpty else{
+                    return
+                }
+                self?.messages = messages
+                
+                DispatchQueue.main.async {
+                    self?.messagesCollectionView.reloadDataAndKeepOffset()
+                    if shouldScrollToBottom{
+                        self?.messagesCollectionView.reloadData()
+                    }
+                    self?.messagesCollectionView.reloadDataAndKeepOffset()
+                }
+                
+                
+            case .failure(let error):
+                print("failed to get messages: \(error)")
+            }
+        })
+    }
 
-    init(with email: String){
+    init(with email: String, id: String?){
         self.otherUserEmail = email
+        self.conversationID = id
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -92,7 +118,6 @@ class ChatsViewController: MessagesViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
 
-        
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -103,6 +128,9 @@ class ChatsViewController: MessagesViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         messageInputBar.inputTextView.becomeFirstResponder()
+        if let convoID = conversationID{
+            listenForMessages(id: convoID, shouldScrollToBottom: true)
+        }
     }
     
 
@@ -119,13 +147,14 @@ extension ChatsViewController: InputBarAccessoryViewDelegate{
         
         print("Sending \(text)")
         //send message
+        let message = Message(sender: selfSender, messageId: messageID, sentDate: Date(), kind: .text(text))
         if isNewConvo{
             //create convo in db
-            let message = Message(sender: selfSender, messageId: messageID, sentDate: Date(), kind: .text(text))
-            DatabaseManager.shared.createNewConvo(with: otherUserEmail, name: self.title ?? "User", firstMessage: message, completion: {
+            DatabaseManager.shared.createNewConvo(with: otherUserEmail, name: self.title ?? "User", firstMessage: message, completion: { [weak self]
                 success in
                 if success{
                     print("message sent")
+                    self?.isNewConvo = false
                 }
                 else{
                     print("failed to send")
@@ -134,6 +163,15 @@ extension ChatsViewController: InputBarAccessoryViewDelegate{
         }
         else{
             //append to existing convo data
+            DatabaseManager.shared.sendMessage(to: self.otherUserEmail, message: message, completion: {
+                success in
+                if success{
+                    print("message sent to preexisting convo")
+                }
+                else{
+                    print("failed to send to preexisting convo")
+                }
+            })
         }
     }
     
@@ -144,7 +182,7 @@ extension ChatsViewController: InputBarAccessoryViewDelegate{
             return nil
         }
         
-        let myEmail = safeEmail(with: currentUserEmail as! String)
+        let myEmail = ChatsViewController.safeEmail(with: currentUserEmail as! String)
         
         let dateString = Self.dateFormatter.string(from: Date())
         
@@ -161,7 +199,6 @@ extension ChatsViewController: MessagesDataSource, MessagesLayoutDelegate, Messa
             return sender
         }
         fatalError("message sender is nil, email should be cached")
-        return Sender(senderId: "1", displayName: "1")
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {

@@ -112,7 +112,9 @@ extension DatabaseManager{
     public func createNewConvo(with otherUserEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void){
         //create new convo with target user email and first message sent
         
-        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else{
+        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String,
+              let currentUsername = UserDefaults.standard.value(forKey: "username") as? String
+        else{
             return
         }
         
@@ -169,6 +171,30 @@ extension DatabaseManager{
             
             ]
             
+            let recipientNewConvoData: [String: Any] = [
+                "ID": convoID,
+                "other_user_email": updatedEmail,
+                "name": currentUsername,
+                "latest_message": [
+                    "date": dateString,
+                    "message": message,
+                    "isRead": false
+                ]
+            
+            ]
+            //update recipient entry
+            self?.database.child("\(otherUserEmail)/conversations").observeSingleEvent(of: .value, with: { [weak self] snapshot in
+                if var conversations = snapshot.value as? [[String: Any]]{
+                    //append
+                    conversations.append(recipientNewConvoData)
+                    self?.database.child("\(otherUserEmail)/conversations").setValue([recipientNewConvoData])
+                }
+                else{
+                    self?.database.child("\(otherUserEmail)/conversations").setValue([recipientNewConvoData])
+                }
+            })
+            
+            // update current user convo entry
             if var conversations = userNode["conversations"] as? [[String: Any]]{
                 //convo array exists, append
                 
@@ -301,11 +327,36 @@ extension DatabaseManager{
                 return Conversation(id: conversationID, name: name, otherUserEmail: otherUserEmail, latestMessage: latestMessageObject)
                 
             })
+            completion(.success(conversations))
         })
     }
     
-    public func getAllMessagesForConvo(with id: String, completion: @escaping (Result<String, Error>) -> Void){
+    public func getAllMessagesForConvo(with id: String, completion: @escaping (Result<[Message], Error>) -> Void){
         //get all messages in a convo
+        database.child("\(id)/messages").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value as? [[String: Any]] else{
+                print("failed to fetch msgs")
+                return
+            }
+            
+            let messages: [Message] = value.compactMap({ dictionary in
+                    guard let name = dictionary["name"] as? String,
+                          let isRead = dictionary["isRead"] as? Bool,
+                          let messageId = dictionary["id"] as? String,
+                          let content = dictionary["content"] as? String,
+                          let senderEmail = dictionary["sender_email"] as? String,
+                          let dateString = dictionary["date"] as? String,
+                          let type = dictionary["type"] as? String,
+                          let date = ChatsViewController.dateFormatter.date(from: dateString) else{
+                            return nil}
+                
+                let sender = Sender(senderId: senderEmail, displayName: name)
+                return Message(sender: sender, messageId: messageId, sentDate: date, kind: .text(content))
+                        
+                
+                })
+            completion(.success(messages))
+        })
     }
     
     public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void){

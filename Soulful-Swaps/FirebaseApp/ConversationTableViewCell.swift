@@ -3,7 +3,6 @@
 //  FirebaseApp
 //
 //  Created by Doug Dahl on 12/1/20.
-//  Copyright © 2020 Robert Canton. All rights reserved.
 //
 
 import UIKit
@@ -41,13 +40,14 @@ class ConversationTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         
         super.layoutSubviews()
-        userNameLabel.frame = CGRect(x: 20, y: 10, width: Int(contentView.bounds.width) - 20 - 100, height: Int(contentView.bounds.height)-20/2)
+        userNameLabel.frame = CGRect(x: 20, y: -30, width: Int(contentView.bounds.width) - 20 - 100, height: Int(contentView.bounds.height)-20/2)
 
         userMessageLabel.frame = CGRect(x: 20, y: 20, width: Int(contentView.bounds.width) - 20 - 100, height: Int(contentView.bounds.height)-20/2)
     }
     
-    public func configure(with model: String){
-        
+    public func configure(with model: Conversation){
+        self.userMessageLabel.text = model.latestMessage.text
+        self.userNameLabel.text = model.name
     }
 
 }

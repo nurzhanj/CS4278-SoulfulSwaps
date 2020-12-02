@@ -32,7 +32,7 @@ class ConversationsViewController: UIViewController{
     
     
     
-    private let tableView: UITableView! = {
+    private let tableView: UITableView = {
         let table = UITableView()
         table.isHidden = true
         table.register(ConversationTableViewCell.self, forCellReuseIdentifier: ConversationTableViewCell.identifier)
@@ -57,18 +57,30 @@ class ConversationsViewController: UIViewController{
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else{
             return
         }
+        print("starting convo fetch")
         let inputEmail = safeEmail(with: email)
         DatabaseManager.shared.getAllConvos(for: inputEmail, completion: { [weak self] result in
             switch result{
             case .success(let fetchedConversations):
-                guard !self!.conversations.isEmpty else{
+                print("successfully got convo models")
+                print(fetchedConversations[0].latestMessage)
+                guard !fetchedConversations.isEmpty else{
+                    self?.tableView.isHidden = true
+                    self?.noConvos.isHidden = false
                     return
                 }
                 self?.conversations = fetchedConversations
+                
+                self?.noConvos.isHidden = true
+                self?.tableView.isHidden = false
+                self?.conversations = fetchedConversations
+                
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
+                self?.tableView.isHidden = true
+                self?.noConvos.isHidden = false
                 print("failed to get convos \(error)")
             }
             
@@ -79,11 +91,11 @@ class ConversationsViewController: UIViewController{
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapComposeButton))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(backToExplore))
-        view.addSubview(tableView)
-        view.addSubview(noConvos)
         setupTableView()
         fetchConversations()
         startListeningForConvos()
+        view.addSubview(tableView)
+        view.addSubview(noConvos)
     }
     
     @objc private func backToExplore(){
@@ -105,7 +117,7 @@ class ConversationsViewController: UIViewController{
         guard let username = result["username"], let email = result["email"] else{
             return
         }
-        let vc = ChatsViewController(with: email)
+        let vc = ChatsViewController(with: email, id: nil)
         vc.isNewConvo = true
         vc.title = username
         vc.navigationItem.largeTitleDisplayMode = .never
@@ -135,8 +147,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
         let model = conversations[indexPath.row]
+        print(model.latestMessage.text)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
         cell.configure(with: model)
         return cell
     }
@@ -145,7 +158,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         tableView.deselectRow(at: indexPath, animated: true)
         
         let model = conversations[indexPath.row]
-        let vc = ChatsViewController(with: model.otherUserEmail)
+        let vc = ChatsViewController(with: model.otherUserEmail, id: model.id)
         vc.title = model.name
         vc.navigationItem.largeTitleDisplayMode = .never
         self.navigationController?.pushViewController(vc, animated: true)
