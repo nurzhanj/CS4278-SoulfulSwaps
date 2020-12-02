@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
     
     var item: ListedItem!
     
+    @IBOutlet var owner: UILabel!
     
     override func viewDidLoad() {
         
@@ -28,6 +29,7 @@ class DetailViewController: UIViewController {
         brand.text = item.brand
         wear.text = item.wear
         size.text = item.size
+        owner.text = "Message \(item.owner) to make an offer"
         
         super.viewDidLoad()
 
