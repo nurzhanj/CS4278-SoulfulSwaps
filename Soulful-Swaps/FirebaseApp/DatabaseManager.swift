@@ -366,6 +366,7 @@ extension DatabaseManager{
                 return
             }
             guard var currentMessages = snapshot.value as? [[String: Any]] else{
+                print("check here 1")
                 completion(false)
                 return
             }
@@ -399,6 +400,7 @@ extension DatabaseManager{
             let dateString = ChatsViewController.dateFormatter.string(from: messageDate)
             
             guard let myEmail = UserDefaults.standard.value(forKey: "email") as? String else{
+                print("check here 2")
                 completion(false)
                 return
             }
@@ -420,6 +422,7 @@ extension DatabaseManager{
             currentMessages.append(message)
             strongSelf.database.child("\(conversation)/messages").setValue(currentMessages, withCompletionBlock: { error, _ in
                 guard error == nil else{
+                    print("check here 3")
                     completion(false)
                     return
                 }

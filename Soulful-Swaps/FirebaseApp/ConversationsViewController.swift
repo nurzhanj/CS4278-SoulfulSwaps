@@ -24,6 +24,8 @@ struct LatestMessage{
 
 class ConversationsViewController: UIViewController{
     
+    var msgTimer: Timer?
+    
     public func safeEmail(with email: String) -> String{
         var safe = email.replacingOccurrences(of: "@", with: "-")
         safe = safe.replacingOccurrences(of: ".", with: "-")
@@ -93,9 +95,13 @@ class ConversationsViewController: UIViewController{
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(backToExplore))
         setupTableView()
         fetchConversations()
-        startListeningForConvos()
+        msgTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(listener), userInfo: nil, repeats: true)
         view.addSubview(tableView)
         view.addSubview(noConvos)
+    }
+    
+    @objc func listener(){
+        startListeningForConvos()
     }
     
     @objc private func backToExplore(){

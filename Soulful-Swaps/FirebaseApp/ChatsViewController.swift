@@ -51,6 +51,8 @@ struct Sender: SenderType{
 
 class ChatsViewController: MessagesViewController {
     
+    var msgTimer: Timer?
+    
     public static func safeEmail(with email: String) -> String{
         var safe = email.replacingOccurrences(of: "@", with: "-")
         safe = safe.replacingOccurrences(of: ".", with: "-")
@@ -104,9 +106,13 @@ class ChatsViewController: MessagesViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         messageInputBar.inputTextView.becomeFirstResponder()
-        if let convoID = conversationID {
-            listenForMessages(id: convoID, shouldScrollToBottom: true)
+        if let conversationID = conversationID {
+           msgTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(listener), userInfo: nil, repeats: true)
         }
+    }
+    
+    @objc func listener(){
+        self.listenForMessages(id: conversationID!, shouldScrollToBottom: true)
     }
     
     private func listenForMessages(id: String, shouldScrollToBottom: Bool){
@@ -174,6 +180,7 @@ extension ChatsViewController: InputBarAccessoryViewDelegate{
                     print("message sent to preexisting convo")
                 }
                 else{
+                    self.messageInputBar.inputTextView.text = nil
                     print("failed to send to preexisting convo")
                 }
             })
