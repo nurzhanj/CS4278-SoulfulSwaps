@@ -10,7 +10,7 @@ import UIKit
 @available(iOS 13.0, *)
 class ListedItemTableViewController: UITableViewController {
     
-    let user = User()
+    let user = trueUser
     
     
 
@@ -50,6 +50,12 @@ class ListedItemTableViewController: UITableViewController {
         cell.itemPoints.text = points
         cell.itemSize.text = item.size
         cell.itemWear.text = item.wear
+        
+        cell.itemName.backgroundColor = .white
+        cell.itemPoints.backgroundColor = .white
+        cell.itemSize.backgroundColor = .white
+        cell.itemWear.backgroundColor = .white
+        
         // Configure the cell...
 
         return cell

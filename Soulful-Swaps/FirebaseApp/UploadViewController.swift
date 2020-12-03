@@ -10,6 +10,8 @@ import DropDown
 
 class UploadViewController: UIViewController {
     
+    var User = trueUser
+    
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var brand: UITextField!
@@ -38,6 +40,16 @@ class UploadViewController: UIViewController {
         imagePicker.sourceType = .savedPhotosAlbum
         imagePicker.allowsEditing = true;
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func saveItem(_ sender: Any) {
+        
+        print("save is working")
+        
+        trueUser.items.insert((ListedItem(name: "new Item", brand: "Nike", size: "Medium", wear: "New", picture: "flowers", pointVal: 1000000, owner: UserDefaults.standard.value(forKey: "username") as! String)), at: 0)
+        
+        self.performSegue(withIdentifier: "savedItem", sender: self)
+ 
     }
     
 }

@@ -7,7 +7,11 @@
 
 import UIKit
 
+var trueUser = User()
+
 class DetailViewController: UIViewController {
+    
+    var user = trueUser
 
     @IBOutlet var itemImage: UIImageView!
     @IBOutlet var itemDescription: UILabel!
@@ -19,24 +23,35 @@ class DetailViewController: UIViewController {
     
     var item: ListedItem!
     
-    @IBOutlet var owner: UILabel!
+    @IBOutlet var owner: UILabel?
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         itemImage.image = UIImage(named: item.picture)
         itemDescription.text = item.name
         points.text = "Valued at " + String(item.pointVal) + " points"
         brand.text = item.brand
         wear.text = item.wear
         size.text = item.size
-        owner.text = "Message \(item.owner) to make an offer"
+        owner?.text = "Message \(item.owner) to make an offer"
         
-        super.viewDidLoad()
+        
 
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func deleteItem(_ sender: Any) {
+        
+        print("delete is working")
+        
+        trueUser.items.remove(at: 0)
+        
+        self.performSegue(withIdentifier: "deleteItem", sender: self)
+ 
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
 

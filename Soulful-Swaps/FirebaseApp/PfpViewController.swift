@@ -17,7 +17,7 @@ class PfpViewController: UIViewController {
 
 
     @IBOutlet var itemCollection: UICollectionView!
-    var user = User()
+    var user = trueUser
     
     override func viewDidLoad() {
 
