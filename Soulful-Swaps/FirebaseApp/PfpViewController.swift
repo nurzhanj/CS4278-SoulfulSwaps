@@ -24,8 +24,14 @@ class PfpViewController: UIViewController {
         coverImage.image = user.bgImage
         profilePicture.image = user.pfp
         
-        self.title = UserDefaults.standard.value(forKey: "username") as! String
-        super.viewDidLoad()
+        if UserDefaults.standard.value(forKey: "username") as? String != nil{
+            self.title = UserDefaults.standard.value(forKey: "username") as? String
+            super.viewDidLoad()
+        }
+        else{
+            try! FirebaseAuth.Auth.auth().signOut()
+            self.performSegue(withIdentifier: "logOut", sender: self)
+        }
 
         // Do any additional setup after loading the view.
     }
