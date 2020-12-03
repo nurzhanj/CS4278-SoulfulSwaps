@@ -157,12 +157,14 @@ class SignUpViewController:UIViewController, UITextFieldDelegate {
                 user, error in
                 if error == nil && user != nil {
                     print("gogogo!")
+                    UserDefaults.standard.setValue(safeEmail, forKey: "email")
                     
                     let changeRequest = FirebaseAuth.Auth.auth().currentUser?.createProfileChangeRequest()
                     changeRequest?.displayName = username
                     changeRequest?.commitChanges{ error in
                         if error == nil{
                             print("Username initialized successfully")
+                            UserDefaults.standard.setValue(username, forKey: "username")
                             DatabaseManager.shared.insertUser(with: User(user_id: 1, username: username, email: email, password: pass, pfp: "", bgImage: "", items: []), completion: { completed in
                                 guard completed == true else{
                                     print("unable to insert user")
