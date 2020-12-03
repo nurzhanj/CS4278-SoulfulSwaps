@@ -7,8 +7,9 @@ import UIKit
 import FirebaseCore
 import FBSDKCoreKit
 
-let primaryColor = UIColor(red: 210/255, green: 109/255, blue: 180/255, alpha: 1)
-let secondaryColor = UIColor(red: 52/255, green: 148/255, blue: 230/255, alpha: 1)
+let primaryColor = UIColor(red: 0/255, green: 206/255, blue: 209/255, alpha: 1)
+let secondaryColor = UIColor(red: 175/255, green: 238/255, blue: 238/255, alpha: 1)
+
 
 
 @UIApplicationMain

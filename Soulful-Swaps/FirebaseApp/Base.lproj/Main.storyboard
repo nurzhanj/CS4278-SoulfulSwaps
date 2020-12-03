@@ -503,7 +503,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wT6-Ce-o1a"/>
-                        <color key="backgroundColor" red="0.95747369527816772" green="0.89425581693649292" blue="0.83114498853683472" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.73958528040000004" green="0.925321281" blue="0.92941665650000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="1y8-ag-jiK" firstAttribute="top" secondItem="fxv-Vn-KDE" secondAttribute="bottom" constant="32" id="B23-JA-axe"/>
                             <constraint firstItem="Rf8-ce-XuF" firstAttribute="top" secondItem="GFf-fF-RbE" secondAttribute="bottom" constant="20" id="BqI-oQ-vO9"/>
@@ -682,7 +682,7 @@
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EKu-eS-xXE">
                                 <rect key="frame" x="0.0" y="358" width="414" height="455"/>
-                                <color key="backgroundColor" red="0.95747369527816772" green="0.89425581693649292" blue="0.83114498853683472" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.73958528040000004" green="0.925321281" blue="0.92941665650000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZJk-Kg-vVE">
                                     <size key="itemSize" width="390" height="267"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -712,7 +712,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="wLY-0H-04F" secondAttribute="trailing" constant="10" id="syX-kD-Ryh"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <size key="customSize" width="390" height="267"/>
                                         <connections>
                                             <outlet property="itemImage" destination="wLY-0H-04F" id="mqy-U0-u0k"/>
@@ -726,7 +726,7 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dnI-Tp-BR6"/>
-                        <color key="backgroundColor" red="0.95747369527816772" green="0.89425581693649292" blue="0.83114498853683472" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.73958528040000004" green="0.925321281" blue="0.92941665650000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="EKu-eS-xXE" firstAttribute="leading" secondItem="dnI-Tp-BR6" secondAttribute="leading" id="63T-6g-zvq"/>
                             <constraint firstItem="aye-hz-gkp" firstAttribute="leading" secondItem="dnI-Tp-BR6" secondAttribute="leading" id="AVY-Yi-Me2"/>
@@ -788,13 +788,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="adL-Ct-ouL">
-                                <rect key="frame" x="10" y="118" width="394" height="414"/>
+                                <rect key="frame" x="10" y="74" width="394" height="414"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="adL-Ct-ouL" secondAttribute="height" multiplier="197:207" id="t7b-kP-juG"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGU-70-Uvr">
-                                <rect key="frame" x="10" y="552" width="394" height="20"/>
+                                <rect key="frame" x="10" y="508" width="394" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Zhc-Wy-oJS"/>
                                 </constraints>
@@ -803,7 +803,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymG-DX-e0b">
-                                <rect key="frame" x="10" y="587" width="394" height="20"/>
+                                <rect key="frame" x="10" y="543" width="394" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="fXe-zn-7P3"/>
                                 </constraints>
@@ -812,7 +812,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWr-gh-HHm">
-                                <rect key="frame" x="10" y="622" width="394" height="20"/>
+                                <rect key="frame" x="10" y="578" width="394" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Gz4-or-Gdx"/>
                                 </constraints>
@@ -821,7 +821,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0U-kW-7Fo">
-                                <rect key="frame" x="10" y="657" width="394" height="20"/>
+                                <rect key="frame" x="10" y="613" width="394" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="SMd-iq-BcC"/>
                                 </constraints>
@@ -830,7 +830,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeQ-4b-w38">
-                                <rect key="frame" x="10" y="692" width="394" height="20"/>
+                                <rect key="frame" x="10" y="648" width="394" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="bDf-b7-R8y"/>
                                     <constraint firstAttribute="width" constant="394" id="jl0-BZ-fFh"/>
@@ -840,7 +840,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="by7-VI-irR">
-                                <rect key="frame" x="10" y="727" width="394" height="30"/>
+                                <rect key="frame" x="10" y="683" width="394" height="30"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="xB3-Vz-2TI"/>
@@ -855,7 +855,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vYJ-LL-STA"/>
-                        <color key="backgroundColor" red="0.95747369527816772" green="0.89425581693649292" blue="0.83114498853683472" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.73958528040000004" green="0.925321281" blue="0.92941665650000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="tWr-gh-HHm" firstAttribute="top" secondItem="ymG-DX-e0b" secondAttribute="bottom" constant="15" id="01p-mi-9nC"/>
                             <constraint firstItem="by7-VI-irR" firstAttribute="top" secondItem="UeQ-4b-w38" secondAttribute="bottom" constant="15" id="0lh-gn-w26"/>
@@ -983,7 +983,7 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eRf-d6-Zii"/>
-                        <color key="backgroundColor" red="0.95747369527816772" green="0.89425581693649292" blue="0.83114498853683472" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.73958528040000004" green="0.925321281" blue="0.92941665650000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="X0s-E8-gUc" firstAttribute="top" secondItem="zCb-Tr-co6" secondAttribute="bottom" constant="15" id="0ax-s7-KGs"/>
                             <constraint firstItem="eRf-d6-Zii" firstAttribute="trailing" secondItem="E7b-gA-9rc" secondAttribute="trailing" constant="10" id="2Fn-0U-9d8"/>
@@ -1173,10 +1173,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7A1-be-Ytx"/>
-        <segue reference="raf-Fc-bg6"/>
+        <segue reference="Vk5-8Y-fwm"/>
+        <segue reference="xVH-P1-uqh"/>
+        <segue reference="k4D-kq-qtT"/>
         <segue reference="zvU-9u-1wH"/>
-        <segue reference="3TT-9l-4uc"/>
+        <segue reference="0I6-5J-2bX"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="backArrow" width="25" height="25"/>
@@ -1194,6 +1195,9 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
@@ -1202,9 +1206,6 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tertiarySystemGroupedBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
